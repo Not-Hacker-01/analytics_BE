@@ -1,6 +1,6 @@
 const userService = require("./user.service");
 
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
 
     const user = await userService.createUser(req.body);
@@ -12,15 +12,12 @@ const createUser = async (req, res) => {
 
   } catch (error) {
 
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+    next(error);
 
   }
 };
 
-const getUsers = async (req, res) => {
+const getUsers = async (req, res, next) => {
   try {
 
     const users = await userService.getUsers();
@@ -32,15 +29,12 @@ const getUsers = async (req, res) => {
 
   } catch (error) {
 
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+    next(error);
 
   }
 };
 
-const getUserById = async (req, res) => {
+const getUserById = async (req, res, next) => {
   try {
 
     const user = await userService.getUserById(req.params.id);
@@ -52,15 +46,12 @@ const getUserById = async (req, res) => {
 
   } catch (error) {
 
-    res.status(404).json({
-      success: false,
-      message: error.message
-    });
+    next(error);
 
   }
 };
 
-const deleteUser = async (req, res) => {
+const deleteUser = async (req, res, next) => {
   try {
 
     await userService.deleteUser(req.params.id);
@@ -72,10 +63,7 @@ const deleteUser = async (req, res) => {
 
   } catch (error) {
 
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+    next(error);
 
   }
 };

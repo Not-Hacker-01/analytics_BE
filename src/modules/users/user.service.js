@@ -22,7 +22,7 @@ const getUsers = async () => {
     const user = await userRepository.getUserById(id);
   
     if (!user) {
-      throw new Error("User not found");
+      throw new AppError("User not found", 404);
     }
   
     return user;
